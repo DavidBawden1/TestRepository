@@ -33,7 +33,7 @@ namespace WCFWindowsServiceHost
 
         public void StartWCFService()
         {
-            string httpAddress = $"http://localhost:80/GetData";
+            string httpAddress = $"https://localhost:80/GetData";
             Uri addressUri = new Uri(httpAddress);
             Uri[] baseAddresses = new Uri[] { addressUri };
 
@@ -44,7 +44,7 @@ namespace WCFWindowsServiceHost
             Type type = typeof(IWCFServiceHost);
 
             host.AddServiceEndpoint(type, secureHttpBinding, "WCFServiceHost");
-            host.Credentials.ServiceCertificate.SetCertificate("MyCertificate", StoreLocation.LocalMachine, StoreName.My);
+            //host.Credentials.ServiceCertificate.SetCertificate("MyCertificate", StoreLocation.LocalMachine, StoreName.My);
 
             try
             {
