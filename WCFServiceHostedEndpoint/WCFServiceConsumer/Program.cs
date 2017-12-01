@@ -11,11 +11,19 @@ namespace WCFServiceConsumer
     {
         static void Main(string[] args)
         {
-            while (true)
+            try
             {
                 WCFServiceHostClient client = new WCFServiceHostClient();
                 string helloWorldMessage = client.GetData();
                 Console.WriteLine(helloWorldMessage);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.ReadKey();
             }
         }
     }
