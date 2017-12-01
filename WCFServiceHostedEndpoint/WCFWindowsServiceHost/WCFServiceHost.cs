@@ -44,7 +44,7 @@ namespace WCFWindowsServiceHost
             Type type = typeof(IWCFServiceHost);
 
             host.AddServiceEndpoint(type, secureHttpBinding, "WCFServiceHost");
-            //host.Credentials.ServiceCertificate.SetCertificate("MyCertificate", StoreLocation.LocalMachine, StoreName.My);
+            host.Credentials.ServiceCertificate.SetCertificate("cert-2017-11-30-12-33-35", StoreLocation.LocalMachine, StoreName.My);
 
             try
             {

@@ -14,7 +14,6 @@ namespace TriggerServiceHostStartup
         private void StartWCFServiceButton_Click(object sender, EventArgs e)
         {
             WCFServiceHost host = new WCFServiceHost();
-
             try
             {
                 host.StartWCFService();
