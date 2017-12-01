@@ -35,22 +35,36 @@ namespace WCFWindowsServiceHost
 
         public void StartWCFService()
         {
-            string httpAddress = $"https://localhost:443/GetData";
+            X509Certificate2 cer = new X509Certificate2();
+            cer.Import(@"C:\temp\cert.pfx", "passw0rd!", X509KeyStorageFlags.MachineKeySet);
+            //X509Store store = new X509Store(StoreLocation.LocalMachine);
+            //store.Certificates.Add(cer);
+
+            //X509Certificate2Collection cers = store.Certificates.Find(X509FindType.FindBySubjectName, "WCFCert", false);
+            //if (cers.Count > 0)
+            //{
+            //    cer = cers[0];
+            //};
+            //store.Close();
+            //return;
+            string httpAddress = $"https://localhost:8080/GetData";
             Uri addressUri = new Uri(httpAddress);
             Uri[] baseAddresses = new Uri[] { addressUri };
-
             ServiceHost host = new ServiceHost(typeof(WCFServiceHost), baseAddresses);
             BasicHttpBinding secureHttpBinding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
             secureHttpBinding.Name = "secureHttpBinding";
             secureHttpBinding.Security.Transport.ClientCredentialType = HttpClientCredentialType.None;
             Type type = typeof(IWCFServiceHost);
             
+
+
             //var storeName = @"my"; //ConfigurationManager.AppSettings["certStoreName"];
             //StoreName configuredStorenmae;
             //Enum.TryParse(storeName, out configuredStorenmae);
             
             host.AddServiceEndpoint(type, secureHttpBinding, "WCFServiceHost");
-            host.Credentials.ServiceCertificate.SetCertificate(StoreLocation.LocalMachine, StoreName.My, X509FindType.FindByApplicationPolicy, "2.5.29.14");
+            //host.Credentials.ServiceCertificate.SetCertificate("WCFCert");
+            host.Credentials.ClientCertificate.Certificate = cer;
 
             try
             {
