@@ -36,7 +36,7 @@ namespace WCFWindowsServiceHost
         public void StartWCFService()
         {
             X509Certificate2 cer = new X509Certificate2();
-            cer.Import(@"C:\temp\cert.pfx", "passw0rd!", X509KeyStorageFlags.MachineKeySet);
+            cer.Import(@"C:\Certificates\cert.pfx", "passw0rd!", X509KeyStorageFlags.MachineKeySet);
             //X509Store store = new X509Store(StoreLocation.LocalMachine);
             //store.Certificates.Add(cer);
 
@@ -47,46 +47,43 @@ namespace WCFWindowsServiceHost
             //};
             //store.Close();
             //return;
-            string httpAddress = $"https://localhost:8080/GetData";
-            Uri addressUri = new Uri(httpAddress);
-            Uri[] baseAddresses = new Uri[] { addressUri };
-            ServiceHost host = new ServiceHost(typeof(WCFServiceHost), baseAddresses);
-            BasicHttpBinding secureHttpBinding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
-            secureHttpBinding.Name = "secureHttpBinding";
-            secureHttpBinding.Security.Transport.ClientCredentialType = HttpClientCredentialType.None;
-            Type type = typeof(IWCFServiceHost);
-            
-
-
-            //var storeName = @"my"; //ConfigurationManager.AppSettings["certStoreName"];
-            //StoreName configuredStorenmae;
-            //Enum.TryParse(storeName, out configuredStorenmae);
-            
-            host.AddServiceEndpoint(type, secureHttpBinding, "WCFServiceHost");
-            //host.Credentials.ServiceCertificate.SetCertificate("WCFCert");
-            host.Credentials.ClientCertificate.Certificate = cer;
-
-            try
+            Uri baseAddress = new Uri("https://localhost:8080/hello");
+            using (ServiceHost host = new ServiceHost(typeof(WCFServiceHost), baseAddress))
             {
-                Console.WriteLine("Attempting to open the service host.");
-                host.Open();
-                string address = host.Description.Endpoints[0].ListenUri.AbsoluteUri;
-                Console.WriteLine("Listening @ {0}", address);
-                Console.WriteLine("Press enter to close the service");
-                host.Close();
-            }
-            catch (CommunicationException ex)
-            {
-                Console.WriteLine("A communication error occurred: {0}", ex.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An unknown error occured: {0}", ex.Message);
-            }
-            finally
-            {
-                Console.ReadLine();
+                ServiceMetadataBehavior metataData = new ServiceMetadataBehavior();
+                metataData.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
+                host.Description.Behaviors.Add(metataData);
+                
+                BasicHttpBinding secureHttpBinding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
+                secureHttpBinding.Name = "secureHttpBinding";
+                secureHttpBinding.Security.Transport.ClientCredentialType = HttpClientCredentialType.None;
+                Type type = typeof(IWCFServiceHost);
 
+                host.AddServiceEndpoint(type, secureHttpBinding, "WCFServiceHost");
+                //host.Credentials.ServiceCertificate.SetCertificate("WCFCert");
+                host.Credentials.ClientCertificate.Certificate = cer;
+
+                try
+                {
+                    Console.WriteLine("Attempting to open the service host.");
+                    host.Open();
+                    Console.WriteLine("Listening @ {0}", baseAddress);
+                    Console.WriteLine("Press enter to close the service");
+                    host.Close();
+                }
+                catch (CommunicationException ex)
+                {
+                    Console.WriteLine("A communication error occurred: {0}", ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("An unknown error occured: {0}", ex.Message);
+                }
+                finally
+                {
+                    Console.ReadLine();
+
+                }
             }
         }
     }
