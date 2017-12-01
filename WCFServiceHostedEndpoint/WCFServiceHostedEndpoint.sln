@@ -10,8 +10,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFServiceConsumer", "WCFSe
 		{902CF35C-322F-46E7-A405-016093BC624C} = {902CF35C-322F-46E7-A405-016093BC624C}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TriggerServiceHostStartup", "TriggerServiceHostStartup\TriggerServiceHostStartup.csproj", "{13CF2004-80B9-4E21-B52E-95A7BD99EC99}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceRunner", "ServiceRunner\ServiceRunner.csproj", "{B0E8F166-CF4C-42F7-8CC2-45D32616A62B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertificateOidFinder", "CertificateOidFinder\CertificateOidFinder.csproj", "{35D992BB-71AD-4713-A712-EF162C41326F}"
@@ -34,10 +32,6 @@ Global
 		{4E2194BD-60ED-49D1-A16D-F03776F8CABF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E2194BD-60ED-49D1-A16D-F03776F8CABF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E2194BD-60ED-49D1-A16D-F03776F8CABF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{13CF2004-80B9-4E21-B52E-95A7BD99EC99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{13CF2004-80B9-4E21-B52E-95A7BD99EC99}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{13CF2004-80B9-4E21-B52E-95A7BD99EC99}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{13CF2004-80B9-4E21-B52E-95A7BD99EC99}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B0E8F166-CF4C-42F7-8CC2-45D32616A62B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B0E8F166-CF4C-42F7-8CC2-45D32616A62B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0E8F166-CF4C-42F7-8CC2-45D32616A62B}.Release|Any CPU.ActiveCfg = Release|Any CPU
