@@ -16,6 +16,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceRunner", "ServiceRun
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertificateOidFinder", "CertificateOidFinder\CertificateOidFinder.csproj", "{35D992BB-71AD-4713-A712-EF162C41326F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IISHosted", "IISHosted", "{A7324FFE-1487-495F-B3DF-05670FF31017}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFIISHostedService", "WCFIISHostedService\WCFIISHostedService.csproj", "{614E4DA6-3A9E-464F-B237-44882F0EEB91}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,8 +46,15 @@ Global
 		{35D992BB-71AD-4713-A712-EF162C41326F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35D992BB-71AD-4713-A712-EF162C41326F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35D992BB-71AD-4713-A712-EF162C41326F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{614E4DA6-3A9E-464F-B237-44882F0EEB91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{614E4DA6-3A9E-464F-B237-44882F0EEB91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{614E4DA6-3A9E-464F-B237-44882F0EEB91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{614E4DA6-3A9E-464F-B237-44882F0EEB91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{614E4DA6-3A9E-464F-B237-44882F0EEB91} = {A7324FFE-1487-495F-B3DF-05670FF31017}
 	EndGlobalSection
 EndGlobal
