@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
@@ -33,7 +35,7 @@ namespace WCFWindowsServiceHost
 
         public void StartWCFService()
         {
-            string httpAddress = $"https://localhost:80/GetData";
+            string httpAddress = $"https://localhost:443/GetData";
             Uri addressUri = new Uri(httpAddress);
             Uri[] baseAddresses = new Uri[] { addressUri };
 
@@ -42,9 +44,13 @@ namespace WCFWindowsServiceHost
             secureHttpBinding.Name = "secureHttpBinding";
             secureHttpBinding.Security.Transport.ClientCredentialType = HttpClientCredentialType.None;
             Type type = typeof(IWCFServiceHost);
-
+            
+            //var storeName = @"my"; //ConfigurationManager.AppSettings["certStoreName"];
+            //StoreName configuredStorenmae;
+            //Enum.TryParse(storeName, out configuredStorenmae);
+            
             host.AddServiceEndpoint(type, secureHttpBinding, "WCFServiceHost");
-            host.Credentials.ServiceCertificate.SetCertificate("cert-2017-11-30-12-33-35", StoreLocation.LocalMachine, StoreName.My);
+            host.Credentials.ServiceCertificate.SetCertificate(StoreLocation.LocalMachine, StoreName.My, X509FindType.FindByApplicationPolicy, "2.5.29.14");
 
             try
             {
@@ -53,16 +59,20 @@ namespace WCFWindowsServiceHost
                 string address = host.Description.Endpoints[0].ListenUri.AbsoluteUri;
                 Console.WriteLine("Listening @ {0}", address);
                 Console.WriteLine("Press enter to close the service");
-                Console.ReadLine();
                 host.Close();
             }
-            catch(CommunicationException ex)
+            catch (CommunicationException ex)
             {
                 Console.WriteLine("A communication error occurred: {0}", ex.Message);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine("An unknown error occured: {0}", ex.Message);
+            }
+            finally
+            {
+                Console.ReadLine();
+
             }
         }
     }
