@@ -47,7 +47,7 @@ namespace WCFWindowsServiceHost
             //};
             //store.Close();
             //return;
-            Uri baseAddress = new Uri("https://localhost:8080/hello");
+            Uri baseAddress = new Uri("https://localhost:8080/");
             using (ServiceHost host = new ServiceHost(typeof(WCFServiceHost), baseAddress))
             {
                 ServiceMetadataBehavior metataData = new ServiceMetadataBehavior();
