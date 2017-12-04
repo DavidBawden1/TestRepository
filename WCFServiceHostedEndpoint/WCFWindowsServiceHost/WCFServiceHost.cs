@@ -47,22 +47,22 @@ namespace WCFWindowsServiceHost
             //};
             //store.Close();
             //return;
+            BasicHttpBinding secureHttpBinding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
+            secureHttpBinding.Name = "secureHttpBinding";
+            secureHttpBinding.Security.Transport.ClientCredentialType = HttpClientCredentialType.None;
+            Type type = typeof(IWCFServiceHost);
+
+            ServiceMetadataBehavior metataData = new ServiceMetadataBehavior();
+            metataData.HttpsGetEnabled = true;
+            metataData.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
             Uri baseAddress = new Uri("https://localhost:8080/WCFServiceHost/");
+
             using (ServiceHost host = new ServiceHost(typeof(WCFServiceHost), baseAddress))
             {
-                ServiceMetadataBehavior metataData = new ServiceMetadataBehavior();
-                metataData.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
                 host.Description.Behaviors.Add(metataData);
-                
-                BasicHttpBinding secureHttpBinding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
-                secureHttpBinding.Name = "secureHttpBinding";
-                secureHttpBinding.Security.Transport.ClientCredentialType = HttpClientCredentialType.None;
-                Type type = typeof(IWCFServiceHost);
-
                 host.AddServiceEndpoint(type, secureHttpBinding, "WCFServiceHost");
                 //host.Credentials.ServiceCertificate.SetCertificate("WCFCert");
                 host.Credentials.ClientCertificate.Certificate = cer;
-
                 try
                 {
                     Console.WriteLine("Attempting to open the service host.");
