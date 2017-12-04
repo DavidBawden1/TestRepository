@@ -1,5 +1,5 @@
 ﻿using System;
-using WCFServiceConsumer.WCFServiceHost;
+using WCFWindowsServiceHost;
 
 namespace WCFServiceConsumer
 {
@@ -9,7 +9,7 @@ namespace WCFServiceConsumer
         {
             try
             {
-                WCFServiceHostClient client = new WCFServiceHostClient();
+                WCFServiceHost client = new WCFServiceHost();
                 string helloWorldMessage = client.GetData();
                 Console.WriteLine(helloWorldMessage);
             }
